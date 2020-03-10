@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const cdk8s_1 = require("cdk8s");
+const web_service_1 = require("./lib/web-service");
+class MyChart extends cdk8s_1.Chart {
+    constructor(scope, name) {
+        super(scope, name);
+        // define constructs here
+        new web_service_1.WebService(this, 'hello', { image: 'paulbouwer/hello-kubernetes:1.5', replicas: 2 });
+        new web_service_1.WebService(this, 'ghost', { image: 'ghost', containerPort: 2368 });
+    }
+}
+const app = new cdk8s_1.App();
+new MyChart(app, 'hello');
+app.synth();
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibWFpbi5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIm1haW4udHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFDQSxpQ0FBbUM7QUFDbkMsbURBQStDO0FBRS9DLE1BQU0sT0FBUSxTQUFRLGFBQUs7SUFDekIsWUFBWSxLQUFnQixFQUFFLElBQVk7UUFDeEMsS0FBSyxDQUFDLEtBQUssRUFBRSxJQUFJLENBQUMsQ0FBQztRQUVuQix5QkFBeUI7UUFDekIsSUFBSSx3QkFBVSxDQUFDLElBQUksRUFBRSxPQUFPLEVBQUUsRUFBRSxLQUFLLEVBQUUsaUNBQWlDLEVBQUUsUUFBUSxFQUFFLENBQUMsRUFBRSxDQUFDLENBQUM7UUFDekYsSUFBSSx3QkFBVSxDQUFDLElBQUksRUFBRSxPQUFPLEVBQUUsRUFBRSxLQUFLLEVBQUUsT0FBTyxFQUFFLGFBQWEsRUFBRSxJQUFJLEVBQUUsQ0FBQyxDQUFDO0lBQ3pFLENBQUM7Q0FDRjtBQUVELE1BQU0sR0FBRyxHQUFHLElBQUksV0FBRyxFQUFFLENBQUM7QUFDdEIsSUFBSSxPQUFPLENBQUMsR0FBRyxFQUFFLE9BQU8sQ0FBQyxDQUFDO0FBQzFCLEdBQUcsQ0FBQyxLQUFLLEVBQUUsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IENvbnN0cnVjdCB9IGZyb20gJ0Bhd3MtY2RrL2NvcmUnO1xuaW1wb3J0IHsgQXBwLCBDaGFydCB9IGZyb20gJ2NkazhzJztcbmltcG9ydCB7IFdlYlNlcnZpY2UgfSBmcm9tICcuL2xpYi93ZWItc2VydmljZSc7XG5cbmNsYXNzIE15Q2hhcnQgZXh0ZW5kcyBDaGFydCB7XG4gIGNvbnN0cnVjdG9yKHNjb3BlOiBDb25zdHJ1Y3QsIG5hbWU6IHN0cmluZykge1xuICAgIHN1cGVyKHNjb3BlLCBuYW1lKTtcblxuICAgIC8vIGRlZmluZSBjb25zdHJ1Y3RzIGhlcmVcbiAgICBuZXcgV2ViU2VydmljZSh0aGlzLCAnaGVsbG8nLCB7IGltYWdlOiAncGF1bGJvdXdlci9oZWxsby1rdWJlcm5ldGVzOjEuNScsIHJlcGxpY2FzOiAyIH0pO1xuICAgIG5ldyBXZWJTZXJ2aWNlKHRoaXMsICdnaG9zdCcsIHsgaW1hZ2U6ICdnaG9zdCcsIGNvbnRhaW5lclBvcnQ6IDIzNjggfSk7XG4gIH1cbn1cblxuY29uc3QgYXBwID0gbmV3IEFwcCgpO1xubmV3IE15Q2hhcnQoYXBwLCAnaGVsbG8nKTtcbmFwcC5zeW50aCgpO1xuIl19
