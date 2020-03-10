@@ -12,7 +12,7 @@ export class IaCPipelineStack extends cdk.Stack {
         const pipelineConstruct = new CDKCfnPipeline(this, 'Pipeline', {
             pipelineName: 'infra-as-a-code',
             stackName: 'IaC',
-            templateName: 'infra-as-a-code',
+            templateName: 'InfraStack',
             directory: 'cdk-infra'
         });
         const pipeline = pipelineConstruct.pipeline;

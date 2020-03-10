@@ -68,28 +68,41 @@ export class CDKCfnPipeline extends cdk.Construct {
         });
 
         // Test
-        const templatePrefix =  'CDK' + props.templateName;
+        const templatePrefix =  props.templateName; // InfraStack
         const testStackName = 'CDK' + props.stackName + 'Test';
         const changeSetName = 'StagedChangeSet';
 
         pipeline.addStage({
             stageName: 'Test',
             actions: [
-                new actions.CloudFormationCreateReplaceChangeSetAction({
-                    actionName: 'PrepareChangesTest',
-                    stackName: testStackName,
-                    changeSetName,
-                    runOrder: 1,
-                    adminPermissions: true,
-                    templatePath: buildArtifact.atPath(templatePrefix + 'Test.template.yaml'),
-                    templateConfiguration: buildArtifact.atPath('StackConfig.json'),
-                }),
-                new actions.CloudFormationExecuteChangeSetAction({
-                    actionName: 'ExecuteChangesTest',
-                    stackName: testStackName,
-                    changeSetName,
-                    runOrder: 2
-                })
+
+
+                new actions.CloudFormationCreateUpdateStackAction({
+                  actionName: 'CFN_Deploy',
+                  stackName: 'InfraDeployStack',
+                  templatePath: buildArtifact.atPath(templatePrefix + '.template.json'),
+                  adminPermissions: true,
+                  // parameterOverrides: {
+                  //   [this.builtImage.paramName]: dockerBuildOutput.getParam('imageTag.json', 'imageTag'),
+                  //   // ...this.builtImage.assing(dockerBuildOutput)
+                  // },
+                  extraInputs: [buildArtifact],
+              })
+                // new actions.CloudFormationCreateReplaceChangeSetAction({
+                //     actionName: 'PrepareChangesTest',
+                //     stackName: testStackName,
+                //     changeSetName,
+                //     runOrder: 1,
+                //     adminPermissions: true,
+                //     templatePath: buildArtifact.atPath(templatePrefix + '.template.json'),
+                //     //templateConfiguration: buildArtifact.atPath('StackConfig.json'),
+                // }),
+                // new actions.CloudFormationExecuteChangeSetAction({
+                //     actionName: 'ExecuteChangesTest',
+                //     stackName: testStackName,
+                //     changeSetName,
+                //     runOrder: 2
+                // })
             ],
         });
 
@@ -105,8 +118,8 @@ export class CDKCfnPipeline extends cdk.Construct {
                     changeSetName,
                     runOrder: 1,
                     adminPermissions: true,
-                    templatePath: buildArtifact.atPath(templatePrefix + 'Prod.template.yaml'),
-                    templateConfiguration: buildArtifact.atPath('StackConfig.json'),
+                    templatePath: buildArtifact.atPath(templatePrefix + '.template.yaml'),
+                    //templateConfiguration: buildArtifact.atPath('StackConfig.json'),
                 }),
                 new actions.CloudFormationExecuteChangeSetAction({
                     actionName: 'ExecuteChangesProd',

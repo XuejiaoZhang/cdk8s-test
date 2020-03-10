@@ -1,0 +1,6 @@
+!/.gitignore
+*/.DS_Store
+*/IaCPipeline.template.json
+*/manifest.json
+*/tree.json
+cdk.out

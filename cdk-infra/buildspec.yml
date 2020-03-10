@@ -37,11 +37,14 @@ phases:
       - cd $CODEBUILD_SRC_DIR/cdk-infra
       - npm ci
       - npm run build
-      - cdk synth -o build --app 'node bin/infra.js'
-      #- cp StackConfig.json build/
-      - ls -la
-      - ls -la build/
+      # - cdk synth -o build --app 'node bin/infra.js'
+      # #- cp StackConfig.json build/
+      # - ls -la
+      # - ls -la build/
+      - npm run cdk synth InfraStack -- -o .
+      - ls -al
+
 artifacts:
   files:
-    - cdk-infra/build/*
+    - cdk-infra/InfraStack.template.json
   discard-paths: yes
