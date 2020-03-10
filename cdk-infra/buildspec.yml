@@ -37,10 +37,11 @@ phases:
       - cd $CODEBUILD_SRC_DIR/cdk-infra
       - npm ci
       - npm run build
-      - cdk synth -o build --app 'node bin/infra.ts"'
-      - cp StackConfig.json build/
-
+      - cdk synth -o build --app 'node bin/infra.js'
+      #- cp StackConfig.json build/
+      - ls -la
+      - ls -la build/
 artifacts:
   files:
-    - trivia-backend/infra/cdk/build/*
+    - cdk-infra/build/*
   discard-paths: yes
